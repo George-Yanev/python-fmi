@@ -24,6 +24,7 @@ class Suit(object):
     def __str__(self):
         return str(self.color)
 
+
 class Card():
     def __init__(self, rank, suit):
         self.rank = rank()
@@ -42,7 +43,43 @@ class Card():
         return self.rank == other.rank and self.suit == other.suit
 
 
-#class CardCollection():
+class CardCollection():
+    def __init__(self, collection = []):
+        self.collection = collection
+
+    def __iter__(self):
+        return iter(self.collection)
+
+    def __getitem__(self, key):
+        return self.collection[key]
+
+    def __len__(self):
+        return len(self.collection)
+
+    def draw(self, index):
+        self.index = index
+        return self.collection.pop(self.index)
+
+    def draw_from_top(self):
+        return self.collection.pop(len(self.collection) - 1)
+
+    def draw_from_botton(self):
+        return self.collection.pop()
+
+    def top_card(self):
+        return self.collection[len(self.collection) - 1]
+
+    def bottom_card(self):
+        return self.collection[0]
+
+    def add(self, card):
+        self.card = card
+        self.collection.append(self.card)
+
+    def index(self, card):
+        self.card = card
+        return self.collection.index(self.card) if self.card in \
+               self.collection else None
 
 
 RANKS = {card: type(card, (Rank,), dict(symbol=card)) for card in RANK_CARDS}
